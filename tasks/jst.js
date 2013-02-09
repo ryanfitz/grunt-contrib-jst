@@ -58,14 +58,19 @@ module.exports = function(grunt) {
         }
         filename = processName(filepath);
 
-        return nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';';
+        if(options.amdWrapper){
+          return "define(function(){ return " + compiled "; });";
+        } else {
+          return nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';';
+        }
       });
 
       if (output.length < 1) {
         grunt.log.warn('Destination not written because compiled files were empty.');
       } else {
         output.unshift(nsInfo.declaration);
-        if (options.amdWrapper) {
+        //if (options.amdWrapper) {
+        if (false) {
           if (options.prettify) {
             output.forEach(function(line, index) {
               output[index] = "  " + line;
