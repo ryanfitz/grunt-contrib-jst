@@ -59,7 +59,7 @@ module.exports = function(grunt) {
         filename = processName(filepath);
 
         if(options.amdWrapper){
-          return "define(function(){ return " + compiled + "; });";
+          return "define(['underscore'], function(_){ return " + compiled + "; });";
         } else {
           return nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+';';
         }
